@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Arezoo\Desktop\Soheil\udacity\CarND-Path-Planning-Project\build\CMakeFiles\f231da1a525dbfbc26430dfbd3925a17\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0D7DA888-29ED-3689-B7E1-69DF30886AF2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
