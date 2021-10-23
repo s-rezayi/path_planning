@@ -51,7 +51,14 @@ int main() {
     map_waypoints_dy.push_back(d_y);
   }
 
-  h.onMessage([&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,
+  int lane = 1;
+
+  double ref_velocity = 0.0;
+  const double max_velocity = 49.5;
+  const double max_acceleration = .224;
+
+  h.onMessage([&lane, &ref_velocity, &max_velocity, &max_acceleration,
+               &map_waypoints_x,&map_waypoints_y,&map_waypoints_s,
                &map_waypoints_dx,&map_waypoints_dy]
               (uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                uWS::OpCode opCode) {
@@ -101,12 +108,6 @@ int main() {
           bool too_close = false;
           bool left_occupied = false;
           bool right_occupied = false;
-
-          int lane = 1;
-
-          double ref_velocity = 0.0;
-          const double max_velocity = 49.5;
-          const double max_acceleration = .224;
 
           for(int i = 0; i < sensor_fusion.size(); i++)
           {
@@ -166,7 +167,7 @@ int main() {
             }
           }
 
-          double velocity_diff = 0;
+          // double velocity_diff = 0;
 
           if(too_close) 
           {
@@ -180,14 +181,14 @@ int main() {
             }
             else
             {
-              velocity_diff -= max_acceleration;
+              ref_velocity -= max_acceleration;
             }
           } 
           else 
           {
             if(ref_velocity < max_velocity)
             {
-              velocity_diff += max_acceleration;
+              ref_velocity += max_acceleration;
             }
           }
 
@@ -276,15 +277,6 @@ int main() {
 
           for(int i = 1; i < 50 - prev_size; i++)
           {
-            ref_velocity += velocity_diff;
-            if(ref_velocity > max_velocity)
-            {
-              ref_velocity = max_velocity;
-            }
-            else if(ref_velocity < max_acceleration)
-            {
-              ref_velocity = max_acceleration;
-            }
             double N = target_dist/(0.02*ref_velocity/2.24);
             double x_point = x_add_on + target_x/N;
             double y_point = s(x_point);
