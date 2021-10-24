@@ -152,7 +152,7 @@ int main() {
 
             else if(other_vehicle_lane - lane == -1) 
             {
-              if((check_car_s > car_s) && (check_car_s - car_s) < 30)
+              if(fabs(check_car_s - car_s) < 30)
               {
                 left_occupied = true;
               }
@@ -160,7 +160,7 @@ int main() {
 
             else if(other_vehicle_lane - lane == 1) 
             {
-              if((check_car_s > car_s) && (check_car_s - car_s) < 30)
+              if(fabs(check_car_s - car_s) < 30)
               {
                 right_occupied = true;
               }
